@@ -9,6 +9,9 @@
 namespace app\api\controller\v1;
 
 use app\api\validate\IDMustBePostivenInt;
+use app\api\model\Banner as BannerModel;
+use app\lib\exception\BannerMissException;
+use think\Exception;
 
 class Banner
 {
@@ -17,18 +20,16 @@ class Banner
      * @url /banner/:id
      * @http  GET
      * @param $id banner的id
+     * @return string
      * @throws \think\Exception
      */
     public function getBanner($id){
-//        $data = [
-//            'id'=>$id
-//        ];
-//        $validate = new IDMustBePostivenInt();
-//        $result = $validate->check($data);
-//        if($result){}else{
-//            $e = $validate->getError();
-//        }
         (new IDMustBePostivenInt())->goCheck();
+        $banner = BannerModel::getBannerByID($id);
+        if(!$banner){
+            throw new BannerMissException();
+        }
+        return $banner;
 
     }
 }
