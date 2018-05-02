@@ -27,7 +27,7 @@ class Banner
         (new IDMustBePostivenInt())->goCheck();
         $banner = BannerModel::getBannerByID($id);
         if(!$banner){
-            throw new BannerMissException();
+            throw new Exception('内部错误');
         }
         return $banner;
 
