@@ -15,7 +15,8 @@ namespace app\api\validate;
 class IDMustBePostivenInt extends BaseValidate
 {
     protected $rule = [
-        'id'=>'require|isPostivenInteger'
+        'id'=>'require|isPostivenInteger',
+        'num'=>'in:1,2,3'
     ];
     protected function isPostivenInteger($value,$rule='',$data='',$field=''){
         if(is_numeric($value) && is_int($value+0) && ($value+0)>0){

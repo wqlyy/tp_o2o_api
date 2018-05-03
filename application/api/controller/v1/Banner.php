@@ -8,10 +8,9 @@
 
 namespace app\api\controller\v1;
 
-use app\api\validate\IDMustBePostivenInt;
 use app\api\model\Banner as BannerModel;
+use app\api\validate\IDMustBePostivenInt;
 use app\lib\exception\BannerMissException;
-use think\Exception;
 
 class Banner
 {
@@ -19,7 +18,7 @@ class Banner
      * 获取指定id的banner信息
      * @url /banner/:id
      * @http  GET
-     * @param $id banner的id
+     * @param $id
      * @return string
      * @throws \think\Exception
      */
@@ -27,7 +26,7 @@ class Banner
         (new IDMustBePostivenInt())->goCheck();
         $banner = BannerModel::getBannerByID($id);
         if(!$banner){
-            throw new Exception('内部错误');
+            throw new BannerMissException();
         }
         return $banner;
 
