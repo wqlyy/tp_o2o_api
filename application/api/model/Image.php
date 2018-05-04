@@ -2,17 +2,10 @@
 
 namespace app\api\model;
 
-use think\Model;
-
-class Image extends Model
+class Image extends BaseModel
 {
     protected $hidden = ['id','from','delete_time','update_time'];
-
     public function getUrlAttr($value,$data){
-        if($data['from'] == 1){
-            return config('queue.img_prefix').$value;
-        }else{
-            return $value;
-        }
+        return $this->prefixImgUrl($value,$data);
     }
 }
