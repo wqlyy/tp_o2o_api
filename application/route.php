@@ -12,6 +12,6 @@
 use think\Route;
 
 //获取banner路由
-Route::get('api/v1/banner/:id','api/v1.Banner/getBanner');
+Route::get('api/:version/banner/:id','api/:version.Banner/getBanner');
 
 Route::get('','index/Index/index');
