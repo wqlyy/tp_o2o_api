@@ -10,5 +10,6 @@
 // +----------------------------------------------------------------------
 
 return [
-    'connector' => 'Sync'
+    'connector' => 'Sync',
+    'img_prefix'=>'http://www.o2o.com/images'
 ];
