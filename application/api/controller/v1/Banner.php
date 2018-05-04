@@ -24,8 +24,8 @@ class Banner
      */
     public function getBanner($id){
         (new IDMustBePostivenInt())->goCheck();
-//        $banner = BannerModel::getBannerByID($id);
-        $banner = BannerModel::with(['items','items.img'])->find($id);
+        $banner = BannerModel::getBannerByID($id);
+//        $banner->hidden(['delete_time','update_time','items.type']);
         if(!$banner){
             throw new BannerMissException();
         }
