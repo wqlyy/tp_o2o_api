@@ -18,6 +18,7 @@ class IDMustBePostivenInt extends BaseValidate
         'id'=>'require|isPostivenInteger'
     ];
     protected $message = [
-        'id'=>'id必须是正整数'
+        'id.require'=>'请传入id参数',
+        'id.isPostivenInteger'=>'id必须是正整数'
     ];
 }
