@@ -11,5 +11,5 @@ namespace app\api\model;
 
 class Product extends BaseModel
 {
-
+    protected $hidden = ['pivot','delete_time','from','create_time','update_time','category_id'];
 }
