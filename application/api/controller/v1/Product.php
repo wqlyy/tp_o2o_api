@@ -18,9 +18,11 @@ class Product
     public function getRecent($count=15){
         (new Count())->goCheck();
         $result = ProductModel::getMostRecent($count);
-        if(!$result){
+        if($result->isEmpty()){
             throw new ProductException();
         }
+        $result = $result->hidden(['summary']);
+
         return  $result;
     }
 }
