@@ -23,4 +23,7 @@ Route::get('api/:version/product/by_category','api/:version.Product/getAllInCate
 
 Route::get('api/:version/category/all','api/:version.Category/getAllCategories');
 
+Route::post('api/:version/token/user','api/:version.Token/getToken');
+
+//测试路由
 Route::get('','index/Index/index');
