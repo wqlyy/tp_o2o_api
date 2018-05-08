@@ -11,5 +11,6 @@
 
 return [
     'connector' => 'Sync',
-    'img_prefix'=>'http://www.o2o.com/images'
+    'img_prefix'=>'http://www.o2o.com/images',
+    'token_expire_in'=>7200
 ];
