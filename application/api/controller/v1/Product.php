@@ -11,7 +11,7 @@ namespace app\api\controller\v1;
 
 use app\api\validate\Count;
 use app\api\model\Product as ProductModel;
-use app\api\validate\IDMustBePostivenInt;
+use app\api\validate\IDMustBePositiveInt;
 use app\lib\exception\ProductException;
 
 class Product
@@ -27,7 +27,7 @@ class Product
         return  $result;
     }
     public function getAllInCategory($id){
-        (new IDMustBePostivenInt())->goCheck();
+        (new IDMustBePositiveInt())->goCheck();
         $products = ProductModel::getProductsByCategoryId($id);
         if($products->isEmpty()){
             throw new ProductException();
@@ -36,7 +36,7 @@ class Product
         return $products;
     }
     public function getOne($id){
-        (new IDMustBePostivenInt())->goCheck();
+        (new IDMustBePositiveInt())->goCheck();
         $product = ProductModel::getProductDetail($id);
         if(!$product){
             throw new ProductException();

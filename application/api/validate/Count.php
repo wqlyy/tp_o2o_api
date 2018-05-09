@@ -12,7 +12,7 @@ namespace app\api\validate;
 class Count extends BaseValidate
 {
     protected $rule = [
-        'count' => 'isPostivenInteger|between:1,15'
+        'count' => 'isPositiveInteger|between:1,15'
     ];
     protected $message = [
         'count'=>'最新商品count数量只能在1-15之间'
