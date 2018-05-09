@@ -28,6 +28,7 @@ Route::post('api/:version/token/user','api/:version.Token/getToken');
 
 Route::post('api/:version/address','api/:version.Address/createOrUpdateAddress');
 
+Route::post('api/:version/address/tt','api/:version.Address/secondIs');
 
 //测试路由
 Route::get('','index/Index/index');
