@@ -30,6 +30,7 @@ Route::post('api/:version/address','api/:version.Address/createOrUpdateAddress')
 
 Route::post('api/:version/order','api/:version.Order/placeOrder');
 Route::post('api/:version/pre_order','api/:version.Pay/getPreOrder');
+Route::post('api/:version/notify','api/:version.Pay/receiveNotify');
 
 //测试路由
 Route::get('','index/Index/index');

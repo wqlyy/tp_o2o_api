@@ -7,5 +7,6 @@
  */
 
 return [
-    'token_salt'=>'WANGqiangTEST'
+    'token_salt'=>'WANGqiangTEST',
+    'pay_back_url'=>'http://www.o2o/api/v1/pay/notify'
 ];

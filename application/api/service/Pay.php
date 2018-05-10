@@ -59,7 +59,7 @@ class Pay
         $wxOrderData->SetBody('零食商贩');
         $wxOrderData->SetOpenid($openid);
         //接收微信的回调接口
-        $wxOrderData->SetNotify_url('');
+        $wxOrderData->SetNotify_url(config('secure.pay_back_url'));
         return $this->getPaySignature($wxOrderData);
     }
 

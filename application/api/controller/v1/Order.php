@@ -23,6 +23,7 @@ class Order extends BaseController
     //调用支付接口，进行支付
     //还需要在此进行库存量检测
     //服务器这边调用微信的支付接口进行支付
+    //根据返回结果拉起微信支付
     //微信会返回支付结果，根据返回结果进行库存改变
     protected $beforeActionList = [
         'checkExclusiveScope' => ['only'=>'placeorder']//only对应的必须全小写
