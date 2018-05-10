@@ -65,7 +65,7 @@ class Order
     }
 
     /**
-     * @param string $orderNo 订单号
+     * @param string $orderID 订单号
      * @return array 订单商品状态
      * @throws Exception
      */
@@ -287,7 +287,7 @@ class Order
     {
         $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
         $orderSn =
-            $yCode[intval(date('Y')) - 2017] . strtoupper(dechex(date('m'))) . date(
+            $yCode[intval(date('Y')) - 2018] . strtoupper(dechex(date('m'))) . date(
                 'd') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf(
                 '%02d', rand(0, 99));
         return $orderSn;
