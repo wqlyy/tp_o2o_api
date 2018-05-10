@@ -1,29 +1,52 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/5/9
- * Time: 15:22
+ * Created by 七月.
+ * Author: 七月
+ * 微信公号：小楼昨夜又秋风
+ * 知乎ID: 七月在夏天
+ * Date: 2017/2/23
+ * Time: 1:48
  */
 
 namespace app\api\service;
 
 
-use app\api\model\Order as OrderModel;
 use app\api\model\OrderProduct;
 use app\api\model\Product;
+use app\api\model\Order as OrderModel;
 use app\api\model\UserAddress;
+use app\lib\enum\OrderStatusEnum;
 use app\lib\exception\OrderException;
 use app\lib\exception\UserException;
+use think\Db;
+use think\Exception;
 
+/**
+ * 订单类
+ * 订单做了以下简化：
+ * 创建订单时会检测库存量，但并不会预扣除库存量，因为这需要队列支持
+ * 未支付的订单再次支付时可能会出现库存不足的情况
+ * 所以，项目采用3次检测
+ * 1. 创建订单时检测库存
+ * 2. 支付前检测库存
+ * 3. 支付成功后检测库存
+ */
 class Order
 {
-    //订单的商品列表，也就是客户端传递过来的products参数
-    protected $oProduct;
-    //数据库查询出来的数据（包括库存量）
+    protected $oProducts;
     protected $products;
     protected $uid;
 
+    function __construct()
+    {
+    }
+
+    /**
+     * @param int $uid 用户id
+     * @param array $oProducts 订单商品列表
+     * @return array 订单商品状态
+     * @throws Exception
+     */
     public function place($uid, $oProducts)
     {
         $this->oProducts = $oProducts;
@@ -175,6 +198,7 @@ class Order
     // 如果预扣除了库存量需要队列支持，且需要使用锁机制
     private function createOrderByTrans($snap)
     {
+        Db::startTrans();
         try {
             $orderNo = $this->makeOrderNo();
             $order = new OrderModel();
@@ -187,7 +211,6 @@ class Order
             $order->snap_address = $snap['snapAddress'];
             $order->snap_items = json_encode($snap['pStatus']);
             $order->save();
-
             $orderID = $order->id;
             $create_time = $order->create_time;
 
@@ -196,12 +219,14 @@ class Order
             }
             $orderProduct = new OrderProduct();
             $orderProduct->saveAll($this->oProducts);
+            Db::commit();
             return [
                 'order_no' => $orderNo,
                 'order_id' => $orderID,
                 'create_time' => $create_time
             ];
         } catch (Exception $ex) {
+            Db::rollback();
             throw $ex;
         }
     }
