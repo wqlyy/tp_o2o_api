@@ -45,9 +45,9 @@ class BaseValidate extends Validate
         }
     }
     protected function isMobile($value){
-        $rule = '^1(3|4|5|7|8|9)[0-9]\d{8}$^';
-        $result = preg_match($rule,$value);
-        if($result){
+        $isMob="/^1[3-8]{1}[0-9]{9}$/";
+        $isTel="/^([0-9]{3,4}-)?[0-9]{7,8}$/";
+        if(preg_match($isMob,$value)||preg_match($isTel,$value)){
             return true;
         }else{
             return false;
