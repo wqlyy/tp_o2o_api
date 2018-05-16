@@ -69,4 +69,21 @@ class Order extends BaseController
         $status = $order->place($uid,$products);
         return $status;
     }
+    //获取所有订单
+    public function getSummary($page=1,$size=20){
+        (new PagingParameter())->goCheck();
+        $pagingOrders = OrderModel::getSummaryByPage($page,$size);
+        if($pagingOrders->isEmpty()){
+            return [
+                'current_page' => $pagingOrders->currentPage(),
+                'data'=>[]
+            ];
+        }
+        $data = $pagingOrders->hidden(['snap_items','snap_address'])->toArray();
+        return [
+            'current_page' => $pagingOrders->currentPage(),
+            'data'=>$data
+        ];
+    }
+
 }
